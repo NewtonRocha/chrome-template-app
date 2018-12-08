@@ -1,0 +1,1 @@
+InboxSDK.loadScript('http://localhost:5000/app.js')

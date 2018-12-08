@@ -1,0 +1,21 @@
+{
+  "name": "Chrome Gmail Template Extension",
+  "description": "Extension for use of quick templates emails",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*",
+        "https://inbox.google.com/*"
+      ],
+      "js": ["inboxsdk.js","loader.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "https://mail.google.com/",
+    "https://inbox.google.com/",
+    "http://localhost:5000/"
+  ],
+  "manifest_version": 2
+}
