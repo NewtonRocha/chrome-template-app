@@ -8,7 +8,7 @@
         "https://mail.google.com/*",
         "https://inbox.google.com/*"
       ],
-      "js": ["lib/inboxsdk.js", "js/content.js", "src/iframe.js"],
+      "js": ["lib/inboxsdk.js", "js/content.js"],
       "css": [],
       "run_at": "document_end"
     }
@@ -18,7 +18,8 @@
     "https://inbox.google.com/"
   ],
   "web_accessible_resources": [
-    "iframe.html"
+    "iframe.html",
+    "src/iframe.js"
   ],
   "manifest_version": 2
 }

@@ -8,12 +8,12 @@ InboxSDK.load('1.0', appId).then(sdk => {
     // a compose view has come into existence, do something with it!
     composeView.addButton({
       title: "My Template Button!",
-      iconUrl: 'https://lh5.googleusercontent.com/itq66nh65lfCick8cJ-OPuqZ8OUDTIxjCc25dkc4WUT1JG8XG3z6-eboCu63_uDXSqMnLRdlvQ=s128-h128-e365',
+      iconUrl: 'https://cdn3.iconfinder.com/data/icons/social-media-stitches/32/social_media_online_email-512.png',
       onClick: function (e) {
         var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
         if (!location.ancestorOrigins.contains(extensionOrigin)) {
           var iframe = document.createElement('iframe');
-          iframe.onload = function() {
+          iframe.onload = function () {
             iframe.contentWindow.postMessage("greeting", "*");
           };
           function modalMessageHandler(event) {
@@ -21,15 +21,27 @@ InboxSDK.load('1.0', appId).then(sdk => {
               if (event.data === 'close') {
                 modal.close();
               } else {
-                e.composeView.insertTextIntoBodyAtCursor(event.data);
+                e.composeView.setBodyHTML(event.data);
               }
             }
           }
           window.addEventListener('message', modalMessageHandler, false);
 
           iframe.src = chrome.runtime.getURL('iframe.html');
-          
-          document.body.appendChild(iframe);
+          iframe.style.width = "400px";
+          iframe.style.height = "440px";
+          iframe.style.overflow = 'hidden';
+          iframe.scrolling="no"
+          iframe.frameBorder = "0"
+          // iframe.style.cssText = "height:200px;left:93.725px;position:absolute;top:192px;visibility:visible;width:262px;z-index:11;" 
+
+          var modal = sdk.Widgets.showModalView({
+            el: iframe
+          });
+
+          modal.on('destroy', function () {
+            window.removeEventListener('message', modalMessageHandler, false);
+          });
         }
       },
     });
